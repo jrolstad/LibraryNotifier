@@ -34,6 +34,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.1\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -45,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Commands\GetNewLibraryItemsCommandTests.cs" />
     <Compile Include="Factories\XmlReaderFactoryTests.cs" />
     <Compile Include="Mappers\SyndicatedLibraryItemMapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,9 +56,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\LibraryNotifier.Core\LibraryNotifier.Core.csproj">
       <Project>{5FB37144-43AC-497B-9B7A-B8980D123A44}</Project>
