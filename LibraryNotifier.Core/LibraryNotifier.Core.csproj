@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,8 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Commands\GetNewLibraryItemsCommand.cs" />
+    <Compile Include="Commands\Requests\GetNewLibraryItemsRequest.cs" />
+    <Compile Include="Commands\Responses\GetNewLibraryItemsResponse.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Factories\IFactory.cs" />
+    <Compile Include="Factories\SyndicationFeedFactory.cs" />
+    <Compile Include="Factories\XmlReaderFactory.cs" />
+    <Compile Include="Mappers\IMapper.cs" />
+    <Compile Include="Mappers\SyndicatedLibraryItemMapper.cs" />
+    <Compile Include="Models\LibraryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
