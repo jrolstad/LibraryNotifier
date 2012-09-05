@@ -44,10 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddSearchableItemCommand.cs" />
     <Compile Include="Commands\GetNewLibraryItemsCommand.cs" />
-    <Compile Include="Commands\Requests\GetNewLibraryItemsRequest.cs" />
+    <Compile Include="Commands\GetSearchableItemsCommand.cs" />
+    <Compile Include="Commands\RemoveSearchableItemCommand.cs" />
+    <Compile Include="Commands\Requests\Request.cs" />
+    <Compile Include="Commands\Responses\ActionResponse.cs" />
     <Compile Include="Commands\Responses\GetNewLibraryItemsResponse.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Responses\QueryResponse.cs" />
+    <Compile Include="Data\IEntity.cs" />
+    <Compile Include="Data\InMemoryRepository.cs" />
+    <Compile Include="Data\IRepository.cs" />
     <Compile Include="Factories\IFactory.cs" />
     <Compile Include="Factories\SyndicationFeedFactory.cs" />
     <Compile Include="Factories\XmlReaderFactory.cs" />

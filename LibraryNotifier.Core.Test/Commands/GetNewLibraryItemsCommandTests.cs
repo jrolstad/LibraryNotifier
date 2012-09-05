@@ -39,7 +39,7 @@ namespace LibraryNotifier.Core.Test.Commands
             
             var command = new GetNewLibraryItemsCommand(mapper, xmlReaderFactory, syndicationFeedFactory);
 
-            var request = new GetNewLibraryItemsRequest {Url = _feedUrl};
+            var request = new Request<string>{Parameter = _feedUrl};
 
             _response = command.Execute(request);
         }
@@ -49,7 +49,7 @@ namespace LibraryNotifier.Core.Test.Commands
         public void When_executing_then_the_new_items_are_returned()
         {
             // Assert
-            Assert.That(_response.NewItems.Count(),Is.EqualTo(2));
+            Assert.That(_response.Items.Count(),Is.EqualTo(2));
         }
 
         [Test]

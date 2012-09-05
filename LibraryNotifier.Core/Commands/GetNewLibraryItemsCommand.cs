@@ -10,7 +10,7 @@ using LibraryNotifier.Core.Models;
 
 namespace LibraryNotifier.Core.Commands
 {
-    public class GetNewLibraryItemsCommand: ICommand<GetNewLibraryItemsRequest,GetNewLibraryItemsResponse>
+    public class GetNewLibraryItemsCommand: ICommand<Request<string>,GetNewLibraryItemsResponse>
     {
         private readonly IMapper<SyndicationItem, LibraryItem> _itemMapper;
         private readonly IFactory<string, XmlReader> _xmlReaderFactory;
@@ -23,13 +23,13 @@ namespace LibraryNotifier.Core.Commands
             _syndicationFeedFactory = syndicationFeedFactory;
         }
 
-        public GetNewLibraryItemsResponse Execute(GetNewLibraryItemsRequest request)
+        public GetNewLibraryItemsResponse Execute(Request<string> request)
         {
-            var reader = _xmlReaderFactory.Create(request.Url);
+            var reader = _xmlReaderFactory.Create(request.Parameter);
             var feed = _syndicationFeedFactory.Create(reader);
 
             if (feed == null)
-                throw new ApplicationException(string.Format("Unable to connect to feed at {0}",request.Url));
+                throw new ApplicationException(string.Format("Unable to connect to feed at {0}",request.Parameter));
 
             var newItems = feed.Items
                 .Select(_itemMapper.Map)
@@ -39,7 +39,7 @@ namespace LibraryNotifier.Core.Commands
             var response = new GetNewLibraryItemsResponse
                 {
                     LastUpdatedAt = feed.LastUpdatedTime.DateTime,
-                    NewItems = newItems
+                    Items = newItems
                 };
 
             reader.Close();

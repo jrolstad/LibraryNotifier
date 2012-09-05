@@ -8,6 +8,6 @@ namespace LibraryNotifier.Core.Commands.Responses
     {
         public DateTime LastUpdatedAt { get; set; }
 
-        public IEnumerable<LibraryItem> NewItems { get; set; }
+        public IEnumerable<LibraryItem> Items { get; set; }
     }
 }
