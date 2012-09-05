@@ -53,6 +53,7 @@
     <Compile Include="Commands\Responses\GetNewLibraryItemsResponse.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Responses\QueryResponse.cs" />
+    <Compile Include="Commands\SearchNewLibraryItemsCommand.cs" />
     <Compile Include="Data\IEntity.cs" />
     <Compile Include="Data\InMemoryRepository.cs" />
     <Compile Include="Data\IRepository.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Mappers\SyndicatedLibraryItemMapper.cs" />
     <Compile Include="Models\LibraryItem.cs" />
     <Compile Include="Models\SearchableItem.cs" />
+    <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

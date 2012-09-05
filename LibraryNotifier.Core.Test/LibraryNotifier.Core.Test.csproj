@@ -57,6 +57,7 @@
     <Compile Include="Commands\GetNewLibraryItemsCommandTests.cs" />
     <Compile Include="Commands\GetSearchableItemsCommandTests.cs" />
     <Compile Include="Commands\RemoveSearchableItemCommandTests.cs" />
+    <Compile Include="Commands\SearchNewLibraryItemsCommandTests.cs" />
     <Compile Include="Factories\XmlReaderFactoryTests.cs" />
     <Compile Include="Mappers\SyndicatedLibraryItemMapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
