@@ -54,6 +54,7 @@
     <Compile Include="Mappers\IMapper.cs" />
     <Compile Include="Mappers\SyndicatedLibraryItemMapper.cs" />
     <Compile Include="Models\LibraryItem.cs" />
+    <Compile Include="Models\SearchableItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
