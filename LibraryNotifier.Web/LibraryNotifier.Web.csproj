@@ -132,6 +132,7 @@
     <Compile Include="Mappers\SearchableItemViewModelMapper.cs" />
     <Compile Include="Models\LibraryItemViewModel.cs" />
     <Compile Include="Models\Requests\AddSearchableItemRequest.cs" />
+    <Compile Include="Models\Requests\RemoveSearchableItemRequest.cs" />
     <Compile Include="Models\SearchableItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -139,6 +140,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

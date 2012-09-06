@@ -7,7 +7,7 @@ namespace LibraryNotifier.Web.Infrastructure.Modules
     {
         public override void Load()
         {
-            Bind<IRepository>().To<InMemoryRepository>();
+            Bind<IRepository>().To<InMemoryRepository>().InSingletonScope();
         }
     }
 }

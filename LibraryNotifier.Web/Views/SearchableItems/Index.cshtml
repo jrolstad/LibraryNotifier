@@ -1,5 +1,86 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "LibraryNotifier: Search Items";
 }
 
-<h2>Index</h2>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-1.7-development-only.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/knockout-2.1.0.js")" type="text/javascript"></script>
+<div>
+    <table data-bind='visible: items().length > 0'>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody data-bind='foreach: items'>
+            <tr>
+                
+                <td><p data-bind="text: title"></p></td>
+                <td><a href='#' data-bind='click: $root.removeItem'>Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <input class='required' data-bind='value: $root.newTitle, uniqueName: true' />
+    <button data-bind='click: $root.addItem'>Add Gift</button>
+</div>
+
+<script type="text/javascript">
+    var SearchableItemViewModel = function (items) {
+        var self = this;
+        self.items = ko.observableArray(items);
+        self.newTitle = ko.observable();
+
+        self.addItem = function () {
+
+            $.ajax({
+                url: '@Url.Action("Add")',
+                dataType: 'json',
+                data: { "Title": self.newTitle() },
+                success: function (data) {
+                    self.items.push({id:data.Id,title:data.Title});
+                }
+            });
+
+        };
+
+        self.removeItem = function (item) {
+            $.ajax({
+                url: '@Url.Action("Remove")',
+                dataType: 'json',
+                data: { "Id": item.id },
+                success: function (data) {
+                    self.items.remove(item);
+                }
+            });
+            
+
+        };
+
+        self.refresh = function () {
+            $.ajax({
+                url: '@Url.Action("Get")',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (key, val) {
+                        self.items.push({ id: val.Id, title: val.Title });
+                    });
+                }
+            });
+        };
+    };
+
+    var viewModel = new SearchableItemViewModel([
+            { title: "Chamber of Secrets", id:"identifier" }
+        ]);
+    ko.applyBindings(viewModel);
+    viewModel.refresh();
+
+    // Activate jQuery Validation
+    $("form").validate({ submitHandler: viewModel.save });
+</script>
