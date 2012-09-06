@@ -31,6 +31,7 @@
                 dataType: 'json',
                 data: { "Title": self.newTitle() },
                 success: function (data) {
+                    self.newTitle("");
                     if (data != null) {
                         self.items.push({ id: data.Id, title: data.Title });
                     }
