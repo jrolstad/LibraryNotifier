@@ -17,7 +17,9 @@ namespace LibraryNotifier.Web.Infrastructure.Modules
                 var connectionString = ConfigurationManager.AppSettings["MONGOHQ_URL"];
                 var server = MongoServer.Create(connectionString);
 
-                var databaseName = ConfigurationManager.AppSettings["MONGOHQ_DATABASE"];
+                var dbNameStartPosition = connectionString.LastIndexOf(@"/", System.StringComparison.Ordinal);
+                var databaseName = connectionString.Substring(dbNameStartPosition+1);
+
                 var db = server.GetDatabase(databaseName);
 
                 return db;
