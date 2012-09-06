@@ -2,7 +2,7 @@
     <table data-bind='visible: items().length > 0'>
         <thead>
             <tr>
-                <th>Title</th>
+                <th>Search Terms</th>
                 <th />
             </tr>
         </thead>
@@ -15,7 +15,7 @@
         </tbody>
     </table>
     <input class='required' data-bind='value: $root.newTitle, uniqueName: true' />
-    <button data-bind='click: $root.addItem'>Add Gift</button>
+    <button data-bind='click: $root.addItem'>Add Search Term</button>
 </div>
 
 <script type="text/javascript">
@@ -31,7 +31,9 @@
                 dataType: 'json',
                 data: { "Title": self.newTitle() },
                 success: function (data) {
-                    self.items.push({ id: data.Id, title: data.Title });
+                    if (data != null) {
+                        self.items.push({ id: data.Id, title: data.Title });
+                    }
                 }
             });
 

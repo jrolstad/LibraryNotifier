@@ -8,6 +8,9 @@ namespace LibraryNotifier.Web.Mappers
     {
         public SearchableItemViewModel Map(SearchableItem toMap)
         {
+            if (toMap == null)
+                return null;
+
             return new SearchableItemViewModel
                        {
                            Id = toMap.Id,

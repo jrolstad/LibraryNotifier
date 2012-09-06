@@ -10,18 +10,20 @@ namespace LibraryNotifier.Web.Mappers
     {
         public IEnumerable<SearchResultViewModel> Map(IEnumerable<SearchResult> toMap)
         {
-            var results = toMap
-                .SelectMany(result => result.Matches)
-                .Select(
-                    match =>
-                    new SearchResultViewModel
+            foreach (var searchResult in toMap)
+            {
+                foreach (var match in searchResult.Matches)
+                {
+                    yield return new SearchResultViewModel
                         {
-                            Title = match.Title,
+                            SearchTerms = searchResult.Item.Title,
                             Summary = match.Summary,
-                            Url = match.Link.AbsoluteUri
-                        });
-
-            return results;
+                            Title = match.Title,
+                            Url = match.Link.AbsoluteUri,
+                            LastUpdatedAt = match.LastUpdatedAt.ToString()
+                        };
+                }
+            }
         }
     }
 }

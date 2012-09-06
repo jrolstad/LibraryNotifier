@@ -1,0 +1,52 @@
+﻿<div id="searchResults">
+    <button data-bind='click: executeSearch'>Search</button>
+    <p data-bind="text: status"></p>
+    <table data-bind='visible: results().length > 0'>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Last Updated At</th>
+                <th>Matching Terms</th>
+            </tr>
+        </thead>
+        <tbody data-bind='foreach: results'>
+            <tr>
+                <td><a data-bind="attr: { href: url},text : title" href="#" target="new"></a></td>
+                <td><p data-bind="text: lastUpdatedAt"></p></td>
+                <td><p data-bind="text: searchTerms"></p></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var SearchResultViewModel = function () {
+        var self = this;
+        self.results = ko.observableArray();
+        self.status = ko.observable();
+
+        self.executeSearch = function () {
+            self.status("Searching...");
+            
+            $.ajax({
+                url: '@Url.Action("Search")',
+                dataType: 'json',
+                success: function (data) {
+                    self.status("");
+                    self.results.removeAll();
+                    $.each(data, function (key, val) {
+                        self.results.push({
+                            title: val.Title,
+                            url: val.Url,
+                            lastUpdatedAt: val.LastUpdatedAt,
+                            searchTerms: val.SearchTerms
+                        });
+                    });
+                }
+            });
+        };
+    };
+
+    var viewModel = new SearchResultViewModel();
+    ko.applyBindings(viewModel, document.getElementById("searchResults"));
+</script>

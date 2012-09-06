@@ -1,4 +1,6 @@
-﻿namespace LibraryNotifier.Web.Models
+﻿using System;
+
+namespace LibraryNotifier.Web.Models
 {
     public class SearchResultViewModel
     {
@@ -9,5 +11,7 @@
         public string Url { get; set; }
 
         public string SearchTerms { get; set; }
+
+        public string LastUpdatedAt { get; set; }
     }
 }

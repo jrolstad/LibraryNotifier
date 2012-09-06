@@ -16,6 +16,9 @@ namespace LibraryNotifier.Core.Commands
 
         public ActionResponse<SearchableItem> Execute(Request<string> request)
         {
+            if (string.IsNullOrWhiteSpace(request.Parameter))
+                return new ActionResponse<SearchableItem> {Result = null};
+
             var searchableItem = new SearchableItem
                                      {
                                          Title = request.Parameter,

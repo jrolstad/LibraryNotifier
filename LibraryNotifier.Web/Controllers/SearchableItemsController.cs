@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using LibraryNotifier.Core.Commands;
 using LibraryNotifier.Core.Commands.Requests;
 using LibraryNotifier.Core.Commands.Responses;
+using LibraryNotifier.Core.Factories;
 using LibraryNotifier.Core.Mappers;
 using LibraryNotifier.Core.Models;
 using LibraryNotifier.Web.Models;
@@ -19,6 +20,7 @@ namespace LibraryNotifier.Web.Controllers
         private readonly ICommand<Request<string>, ActionResponse<SearchableItem>> _removeItemCommand;
         private readonly ICommand<Request<string>, QueryResponse<SearchResult>> _searchCommand;
         private readonly IMapper<IEnumerable<SearchResult>, IEnumerable<SearchResultViewModel>> _searchResultMapper;
+        private readonly IFactory<string, ApplicationSettings> _applicationSettingFactory;
 
         public SearchableItemsController(
             ICommand<Request<string>,QueryResponse<SearchableItem>> getItemsCommand,
@@ -28,7 +30,8 @@ namespace LibraryNotifier.Web.Controllers
             [Named("RemoveSearchableItem")]
             ICommand<Request<string>,ActionResponse<SearchableItem>> removeItemCommand,
             ICommand<Request<string>,QueryResponse<SearchResult>> searchCommand,
-            IMapper<IEnumerable<SearchResult>,IEnumerable<SearchResultViewModel>> searchResultMapper)
+            IMapper<IEnumerable<SearchResult>,IEnumerable<SearchResultViewModel>> searchResultMapper,
+            IFactory<string,ApplicationSettings> applicationSettingFactory)
         {
             _getItemsCommand = getItemsCommand;
             _addItemCommand = addItemCommand;
@@ -36,6 +39,7 @@ namespace LibraryNotifier.Web.Controllers
             _removeItemCommand = removeItemCommand;
             _searchCommand = searchCommand;
             _searchResultMapper = searchResultMapper;
+            _applicationSettingFactory = applicationSettingFactory;
         }
 
         public ActionResult Index()
@@ -71,7 +75,8 @@ namespace LibraryNotifier.Web.Controllers
 
         public JsonResult Search()
         {
-            var result = _searchCommand.Execute(new Request<string> { Parameter = "http://www.sno-isle.org/rss/itemlist.cfm?lid=1" });
+            var settings = _applicationSettingFactory.Create(null);
+            var result = _searchCommand.Execute(new Request<string> { Parameter = settings.NewLibraryItemUri });
 
             var viewModels = _searchResultMapper.Map(result.Results);
 
