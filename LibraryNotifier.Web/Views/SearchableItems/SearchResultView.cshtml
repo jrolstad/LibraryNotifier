@@ -32,7 +32,11 @@
                 url: '@Url.Action("Search")',
                 dataType: 'json',
                 success: function (data) {
-                    self.status("");
+                    if (data.length == 0) {
+                        self.status("No Matches Found");
+                    } else {
+                        self.status("");
+                    }
                     self.results.removeAll();
                     $.each(data, function (key, val) {
                         self.results.push({
@@ -42,6 +46,8 @@
                             searchTerms: val.SearchTerms
                         });
                     });
+                    
+                   
                 }
             });
         };

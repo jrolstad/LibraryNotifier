@@ -11,6 +11,9 @@
 
 <script src="@Url.Content("~/Scripts/knockout-2.1.0.js")" type="text/javascript"></script>
 
-@Html.Partial("SearchableItemList")
-
-@Html.Partial("SearchResultView")
+<div style="display: inline-block;vertical-align: top">
+    @Html.Partial("SearchableItemList")
+</div>
+<div style="display: inline-block;vertical-align: top;margin-left: 15px">
+    @Html.Partial("SearchResultView")
+</div>
