@@ -1,0 +1,69 @@
+﻿<div id="searchableItems">
+    <table data-bind='visible: items().length > 0'>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody data-bind='foreach: items'>
+            <tr>
+                
+                <td><p data-bind="text: title"></p></td>
+                <td><a href='#' data-bind='click: $root.removeItem'>Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <input class='required' data-bind='value: $root.newTitle, uniqueName: true' />
+    <button data-bind='click: $root.addItem'>Add Gift</button>
+</div>
+
+<script type="text/javascript">
+    var SearchableItemViewModel = function () {
+        var self = this;
+        self.items = ko.observableArray();
+        self.newTitle = ko.observable();
+
+        self.addItem = function () {
+
+            $.ajax({
+                url: '@Url.Action("Add")',
+                dataType: 'json',
+                data: { "Title": self.newTitle() },
+                success: function (data) {
+                    self.items.push({ id: data.Id, title: data.Title });
+                }
+            });
+
+        };
+
+        self.removeItem = function (item) {
+            $.ajax({
+                url: '@Url.Action("Remove")',
+                dataType: 'json',
+                data: { "Id": item.id },
+                success: function (data) {
+                    self.items.remove(item);
+                }
+            });
+
+
+        };
+
+        self.refresh = function () {
+            $.ajax({
+                url: '@Url.Action("Get")',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (key, val) {
+                        self.items.push({ id: val.Id, title: val.Title });
+                    });
+                }
+            });
+        };
+    };
+
+    var viewModel = new SearchableItemViewModel();
+    ko.applyBindings(viewModel, document.getElementById("searchableItems"));
+    viewModel.refresh();
+</script>
