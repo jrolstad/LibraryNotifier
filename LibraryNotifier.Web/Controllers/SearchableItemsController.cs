@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using LibraryNotifier.Core.Commands;
 using LibraryNotifier.Core.Commands.Requests;
@@ -9,7 +7,6 @@ using LibraryNotifier.Core.Commands.Responses;
 using LibraryNotifier.Core.Mappers;
 using LibraryNotifier.Core.Models;
 using LibraryNotifier.Web.Models;
-using LibraryNotifier.Web.Models.Requests;
 using Ninject;
 
 namespace LibraryNotifier.Web.Controllers
@@ -20,6 +17,8 @@ namespace LibraryNotifier.Web.Controllers
         private readonly ICommand<Request<string>, ActionResponse<SearchableItem>> _addItemCommand;
         private readonly IMapper<SearchableItem, SearchableItemViewModel> _searchableItemMapper;
         private readonly ICommand<Request<string>, ActionResponse<SearchableItem>> _removeItemCommand;
+        private readonly ICommand<Request<string>, QueryResponse<SearchResult>> _searchCommand;
+        private readonly IMapper<IEnumerable<SearchResult>, IEnumerable<SearchResultViewModel>> _searchResultMapper;
 
         public SearchableItemsController(
             ICommand<Request<string>,QueryResponse<SearchableItem>> getItemsCommand,
@@ -27,12 +26,16 @@ namespace LibraryNotifier.Web.Controllers
             ICommand<Request<string>,ActionResponse<SearchableItem>> addItemCommand,
             IMapper<SearchableItem,SearchableItemViewModel> searchableItemMapper,
             [Named("RemoveSearchableItem")]
-            ICommand<Request<string>,ActionResponse<SearchableItem>> removeItemCommand)
+            ICommand<Request<string>,ActionResponse<SearchableItem>> removeItemCommand,
+            ICommand<Request<string>,QueryResponse<SearchResult>> searchCommand,
+            IMapper<IEnumerable<SearchResult>,IEnumerable<SearchResultViewModel>> searchResultMapper)
         {
             _getItemsCommand = getItemsCommand;
             _addItemCommand = addItemCommand;
             _searchableItemMapper = searchableItemMapper;
             _removeItemCommand = removeItemCommand;
+            _searchCommand = searchCommand;
+            _searchResultMapper = searchResultMapper;
         }
 
         public ActionResult Index()
@@ -64,6 +67,15 @@ namespace LibraryNotifier.Web.Controllers
             _removeItemCommand.Execute(new Request<string> {Parameter = id});
 
             return Json(id, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Search()
+        {
+            var result = _searchCommand.Execute(new Request<string> { Parameter = "http://www.sno-isle.org/rss/itemlist.cfm?lid=1" });
+
+            var viewModels = _searchResultMapper.Map(result.Results);
+
+            return Json(viewModels, JsonRequestBehavior.AllowGet);
         }
         
 

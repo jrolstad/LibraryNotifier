@@ -130,10 +130,12 @@
     <Compile Include="Infrastructure\Modules\MapperModule.cs" />
     <Compile Include="Infrastructure\Modules\RepositoryModule.cs" />
     <Compile Include="Mappers\SearchableItemViewModelMapper.cs" />
+    <Compile Include="Mappers\SearchResultViewModelMapper.cs" />
     <Compile Include="Models\LibraryItemViewModel.cs" />
     <Compile Include="Models\Requests\AddSearchableItemRequest.cs" />
     <Compile Include="Models\Requests\RemoveSearchableItemRequest.cs" />
     <Compile Include="Models\SearchableItemViewModel.cs" />
+    <Compile Include="Models\SearchResultViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

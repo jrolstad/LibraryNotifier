@@ -1,4 +1,5 @@
-﻿using System.ServiceModel.Syndication;
+﻿using System.Collections.Generic;
+using System.ServiceModel.Syndication;
 using LibraryNotifier.Core.Mappers;
 using LibraryNotifier.Core.Models;
 using LibraryNotifier.Web.Mappers;
@@ -13,6 +14,7 @@ namespace LibraryNotifier.Web.Infrastructure.Modules
         {
             Bind<IMapper<SyndicationItem, LibraryItem>>().To<SyndicatedLibraryItemMapper>();
             Bind<IMapper<SearchableItem, SearchableItemViewModel>>().To<SearchableItemViewModelMapper>();
+            Bind<IMapper<IEnumerable<SearchResult>, IEnumerable<SearchResultViewModel>>>().To<SearchResultViewModelMapper>();
         }
     }
 }

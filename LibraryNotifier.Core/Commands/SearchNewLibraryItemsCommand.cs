@@ -21,7 +21,7 @@ namespace LibraryNotifier.Core.Commands
         public QueryResponse<SearchResult> Execute(Request<string> request)
         {
             var searchableItems = _getSearchableItemsCommand.Execute(new Request<string>());
-            var newItems = _getNewLibraryItemsCommand.Execute(new Request<string>());
+            var newItems = _getNewLibraryItemsCommand.Execute(new Request<string>{Parameter = request.Parameter});
 
             var results =  GetMatchingNewItems(newItems, searchableItems)
                 .ToList();
