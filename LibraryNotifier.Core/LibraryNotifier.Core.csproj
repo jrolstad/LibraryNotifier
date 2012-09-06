@@ -33,8 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.104.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Rolstad.Extensions">
+      <HintPath>..\packages\Rolstad.Extensions.1.0.1\lib\net40\Rolstad.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,6 +71,7 @@
     <Compile Include="Data\IEntity.cs" />
     <Compile Include="Data\InMemoryRepository.cs" />
     <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Data\MongoDbRepository.cs" />
     <Compile Include="Factories\ApplicationSettingsFactory.cs" />
     <Compile Include="Factories\IFactory.cs" />
     <Compile Include="Factories\SyndicationFeedFactory.cs" />
